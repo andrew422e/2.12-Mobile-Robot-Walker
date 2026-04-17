@@ -9,7 +9,7 @@
 const uint8_t * peerAddr = controllerAddr;
 esp_now_peer_info_t peerInfo;
 
-bool freshWirelessData = false;
+volatile bool freshWirelessData = false;
 ControllerMessage controllerMessage;
 RobotMessage robotMessage;
 

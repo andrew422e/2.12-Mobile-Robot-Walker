@@ -6,8 +6,10 @@
 #include "dpad.h"
 #include "display.h"
 
-const uint8_t controllerAddr[] = {0xEC, 0xDA, 0x3B, 0x41, 0xB5, 0x74};
-const uint8_t robotAddr[] = {0xEC, 0xDA, 0x3B, 0x41, 0xB5, 0x9C};
+extern float newControllerData[6]; // Stores controller data read from Serial for testing
+extern const uint8_t controllerAddr[6];
+extern const uint8_t robotAddr[6];
+
 
 struct ControllerMessage { //This struct is defined for a complex controller, but in lab 7 we only use a single joystick, so values are only written to joystick1.
     unsigned long millis;
@@ -20,6 +22,9 @@ struct ControllerMessage { //This struct is defined for a complex controller, bu
 
     void print();
     bool operator==(const ControllerMessage& other);
+    void readFromSerial();
+    bool readFromSerialLine(const String& line);
+    void updateControllerNewData();
 } ;
 
 struct RobotMessage {
@@ -41,8 +46,8 @@ bool sendRobotData();
 extern const uint8_t * peerAddr;
 extern esp_now_peer_info_t peerInfo;
 
-extern bool freshWirelessData;
+extern volatile bool freshWirelessData;
 extern ControllerMessage controllerMessage;
 extern RobotMessage robotMessage;
 
-#endif // WIRELESS_H
+#endif // WIRELESS_
